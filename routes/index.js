@@ -1,5 +1,9 @@
 var express = require('express');
+// var T = require('../app');
 var router = express.Router();
+
+
+
 
 router.get('/', function(req, res, next) {
     res.render('index',
