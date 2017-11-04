@@ -9,6 +9,8 @@ var from_account = "fgoproject";
 
 var results = [];
 
+var info = T.getAuth();
+
 T.get('search/tweets', { q: keyword + ' from:' + from_account}, function(err, data, response) {
      if  (err) {
         return console.log("ERROR: " + err);
@@ -25,6 +27,7 @@ T.get('search/tweets', { q: keyword + ' from:' + from_account}, function(err, da
 router.get('/', function(req, res, next) {
     res.render('index',
         {title : 'メンテチェッカー' ,
+        info : info,
         results: results}
     );
 });
