@@ -7,7 +7,10 @@
 <body>
 <h1><%=title %></h1>
 
-<%-content %>
+<% for (var i=0; i < results.length; i++) { %>
+<p><%= results[i] %></p>
+<p>--------------------------------------------------</p>
+<% } %>
 
 </body>
 </html>
