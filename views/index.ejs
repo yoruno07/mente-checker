@@ -8,7 +8,7 @@
 <script>
 $(function() {
   var socket = io.connect();
-  socket.on('msg', function(data) {
+  socket.on('fgo_info', function(data) {
         console.log(data);
     $('#receiveMsg').prepend(data + '<br>');
   });
