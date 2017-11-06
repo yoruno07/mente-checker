@@ -40,8 +40,8 @@ function tGet(account, keyword, count, eventname){
   });
 }
 
-var stream = T.stream('statuses/filter', {track: keyword});
-stream.on('tweet', function (tweet) {
+var stream = T.stream('statuses/filter', {track: keyword, follow: account});
+stream.on('eventname', function (tweet) {
   var text = "ユーザー名: " + tweet.user.name + "<br/>ツイート: " + tweet.text;
   text += "<br/>=========================================================";
   io.sockets.emit('msg', text);

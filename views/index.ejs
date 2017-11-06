@@ -2,23 +2,54 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><%=title %></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link href="/stylesheets/sticky-footer-navbar.css" rel="stylesheet">
+    <link href="/stylesheets/info-list.css" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script>
 $(function() {
   var socket = io.connect();
   socket.on('fgo_info', function(data) {
-        console.log(data);
-    $('#receiveMsg').prepend(data + '<br>');
+    $('ul#fgo').prepend('<li class="list-group-item"> '+ data + '</li>');
   });
 });
 </script>
 </head>
 <body>
-<h1><%=title %></h1>
 
-<div id="receiveMsg"></div>
+  <header>
+    <nav class="navbar navbar-dark bg-dark">
+      <a class="navbar-brand" href="#"><%=title %></a>
+    </nav>
+  </header>
+
+  <div class="container">
+  <div id="receiveMsg"></div>
+
+  <main role="main">
+
+    <div class="card" style="width: 30rem;">
+      <div class="card-header">
+        FGOメンテ情報
+      </div>
+      <ul class="list-group list-group-flush info-list" id="fgo">
+      </ul>
+    </div>
+
+    </main>
+  </div>
+
+    <footer class="footer">
+      <div class="container">
+        <span class="text-muted"></span>
+      </div>
+    </footer>
 
 </body>
 </html>
