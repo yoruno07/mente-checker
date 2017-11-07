@@ -1,7 +1,8 @@
 {
-  "games": {
-    "fgo": {
-      "id" : 1,
+  "sitename": "メンテチェッカー",
+  "games": [
+    {
+      "id" : "fgo",
       "name": "Fate / Grand Order",
       "account": "fgoproject",
       "keywords": [
@@ -9,15 +10,15 @@
       ],
       "eventname": "fgo_info"
     },
-    "azure": {
-      "id": 2,
+    {
+      "id": "azure",
       "name": "アズールレーン",
       "account": "azurlane_staff",
       "keywords": [
-        "【メンテナンスのお知らせ】",
+        "メンテナンスのお知らせ",
         "緊急メンテナンス"
       ],
       "eventname": "azure_info"
     }
-  }
+  ]
 }

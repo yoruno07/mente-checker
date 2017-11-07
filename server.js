@@ -49,14 +49,12 @@ class Checker {
   }
 }
 
-Object.keys(games).forEach(function(key){
-  var checker = new Checker(this[key].account, this[key].keywords, this[key].eventname);
+games.forEach(function(val){
+  var checker = new Checker(val.account, val.keywords, val.eventname);
   tSetup(checker);
-  // tSetup(checker.account, checker.keyword, 5, checker.eventname);
   tstream(checker);
-  // tstream(checker.account, checker.keyword, 1, checker.eventname);
   checkers.push(checker);
-},games);
+});
 
 function tSetup(checker) {
   io.sockets.on('connection', function(socket) {
@@ -79,10 +77,10 @@ function tstream(checker) {
 // Twitterからテキストを取得してsocketで発信
 function tGet(checker, count) {
   var account = checker.account;
-  var keywords =  checker.keywords;
+  var keyword =  checker.keywords.join(" OR ");
   var eventname = checker.eventname;
   var last_id = checker.last_id;
-  T.get('search/tweets', { q: keywords[0] + ' from:' + account, count: count}, function(err, data, response) {
+  T.get('search/tweets', { q: keyword + ' from:' + account, count: count}, function(err, data, response) {
        if  (err) {
           return console.log("ERROR: " + err);
        } else {
