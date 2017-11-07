@@ -18,9 +18,13 @@ $(function() {
   // 接続時に既存の要素は一旦削除
   socket.on('connect', function(data) {
     $('ul#fgo').empty();
+    $('ul#azure').empty();
   });
   socket.on('fgo_info', function(data) {
     $('ul#fgo').prepend('<li class="list-group-item"> '+ data + '</li>');
+  });
+  socket.on('azure_info', function(data) {
+    $('ul#azure').prepend('<li class="list-group-item"> '+ data + '</li>');
   });
 });
 </script>
@@ -37,14 +41,27 @@ $(function() {
   <div id="receiveMsg"></div>
 
   <main role="main">
+    <div class="row">
+      <div class="col-md-6">
+          <div class="card" style="width: 30rem;">
+            <div class="card-header">
+              FGOメンテ情報
+            </div>
+            <ul class="list-group list-group-flush info-list" id="fgo">
+            </ul>
+          </div>
+        </div>
 
-    <div class="card" style="width: 30rem;">
-      <div class="card-header">
-        FGOメンテ情報
+        <div class="col-md-6">
+          <div class="card" style="width: 30rem;">
+            <div class="card-header">
+              アズールレーンメンテ情報
+            </div>
+            <ul class="list-group list-group-flush info-list" id="azure">
+            </ul>
+          </div>
+        </div>
       </div>
-      <ul class="list-group list-group-flush info-list" id="fgo">
-      </ul>
-    </div>
 
     </main>
   </div>

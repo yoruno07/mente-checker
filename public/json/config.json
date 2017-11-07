@@ -1,0 +1,23 @@
+{
+  "games": {
+    "fgo": {
+      "id" : 1,
+      "name": "Fate / Grand Order",
+      "account": "fgoproject",
+      "keywords": [
+        "メンテナンス"
+      ],
+      "eventname": "fgo_info"
+    },
+    "azure": {
+      "id": 2,
+      "name": "アズールレーン",
+      "account": "azurlane_staff",
+      "keywords": [
+        "【メンテナンスのお知らせ】",
+        "緊急メンテナンス"
+      ],
+      "eventname": "azure_info"
+    }
+  }
+}

@@ -1,6 +1,7 @@
 var http = require('http');
 var app = require('./app');
 var modules = require('./module');
+var config = require('./public/json/config');
 
 var T = modules.twitter;
 
@@ -10,30 +11,78 @@ server = http.createServer(app).listen(app.get('port'),function()
 });
 
 var io = require('socket.io')(server);
-var keyword = "メンテナンス";
-var account = "fgoproject";
-var count = 5;
-var eventname = 'fgo_info';
+var games = config.games;
+var checkers = [];
 
-var last_id = "";
+class Checker {
+  constructor(acc, kw, et) {
+    this._account = acc;
+    this._keywords = kw;
+    this._eventname = et;
+    this._last_id = "";
+  }
 
-io.sockets.on('connection', function(socket) {
-  socket.on(eventname, function(data) {
-    io.sockets.emit(eventname, data);
+  get account() {
+    return this._account;
+  }
+  get keywords() {
+    return this._keywords;
+  }
+  get eventname() {
+    return this._eventname;
+  }
+  get last_id() {
+    return this._last_id;
+  }
+
+  set account(acc) {
+    this._account = acc;
+  }
+  set keywords(kw) {
+    this._keywords = kw;
+  }
+  set eventname(et) {
+    this._eventname = et;
+  }
+  set last_id(id) {
+    this._last_id = id;
+  }
+}
+
+Object.keys(games).forEach(function(key){
+  var checker = new Checker(this[key].account, this[key].keywords, this[key].eventname);
+  tSetup(checker);
+  // tSetup(checker.account, checker.keyword, 5, checker.eventname);
+  tstream(checker);
+  // tstream(checker.account, checker.keyword, 1, checker.eventname);
+  checkers.push(checker);
+},games);
+
+function tSetup(checker) {
+  io.sockets.on('connection', function(socket) {
+    socket.on(checker.eventname, function(data) {
+      io.sockets.emit(checker.eventname, data);
+    });
+    // socket接続後に最新のツイートを取得
+    tGet(checker, 5);
   });
-  // socket接続後に最新のツイートを取得
-  tGet(account, keyword, count, eventname);
-});
+}
 
 // 1分ごとに最新のツイートを取得し、更新がないか確認
 // streamは日本語の検索が未対応のため、searchメソッドを一定時間ごとに叩くことで擬似リアルタイム表示とする
-setInterval(function(){
-  tGet(account, keyword, 1, eventname);
-}, 60000);
+function tstream(checker) {
+  setInterval(function(){
+                    tGet(checker, 1);
+                  }, 60000);
+}
 
 // Twitterからテキストを取得してsocketで発信
-function tGet(account, keyword, count, eventname) {
-  T.get('search/tweets', { q: keyword + ' from:' + account, count: count}, function(err, data, response) {
+function tGet(checker, count) {
+  var account = checker.account;
+  var keywords =  checker.keywords;
+  var eventname = checker.eventname;
+  var last_id = checker.last_id;
+  T.get('search/tweets', { q: keywords[0] + ' from:' + account, count: count}, function(err, data, response) {
        if  (err) {
           return console.log("ERROR: " + err);
        } else {
@@ -46,13 +95,11 @@ function tGet(account, keyword, count, eventname) {
             // socketでツイート内容を送信
             io.sockets.emit(eventname, statuses[i].text);
             // 最新のツイートのIDを次回比較用に保持
-            if (i === 0) last_id = statuses[i].id;
+            if (i === 0) checker.last_id = statuses[i].id;
           }
       }
   });
 }
-
-
 
 // function tStream(account, keyword, eventname){
 //   var stream = T.stream('statuses/filter', {track: keyword});
