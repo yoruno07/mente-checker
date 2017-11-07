@@ -1,11 +1,8 @@
 /* info-list styles
 -------------------------------------------------- */
-div.row {
-   margin: 2rem 0;
-}
-
 div.card {
    width: 20rem;
+   margin: 2rem 0;
 }
 
 ul.info-list > li {

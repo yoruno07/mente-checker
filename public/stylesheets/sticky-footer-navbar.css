@@ -17,7 +17,9 @@ html {
 /* Custom page CSS
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
-
+body {
+  min-height:100%;
+}
 body > .container {
   padding: 20px 0px;
 }
