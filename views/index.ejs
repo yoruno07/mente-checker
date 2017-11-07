@@ -15,6 +15,10 @@
 <script>
 $(function() {
   var socket = io.connect();
+  // 接続時に既存の要素は一旦削除
+  socket.on('connect', function(data) {
+    $('ul#fgo').empty();
+  });
   socket.on('fgo_info', function(data) {
     $('ul#fgo').prepend('<li class="list-group-item"> '+ data + '</li>');
   });
