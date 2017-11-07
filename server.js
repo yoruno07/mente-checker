@@ -11,7 +11,7 @@ server = http.createServer(app).listen(app.get('port'),function()
 
 var io = require('socket.io')(server);
 var keyword = "メンテナンス";
-var account = "fgo_project";
+var account = "fgoproject";
 var count = 5;
 var eventname = 'fgo_info';
 
@@ -51,6 +51,8 @@ function tGet(account, keyword, count, eventname) {
       }
   });
 }
+
+
 
 // function tStream(account, keyword, eventname){
 //   var stream = T.stream('statuses/filter', {track: keyword});
