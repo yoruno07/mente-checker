@@ -19,6 +19,34 @@
         "緊急メンテナンス"
       ],
       "eventname": "azure_info"
+    },
+    {
+      "id": "kancolle",
+      "name": "艦隊これくしょん",
+      "account": "KanColle_STAFF",
+      "keywords": [
+        "メンテナンス"
+      ],
+      "eventname": "kancolle_info"
+    },
+    {
+      "id": "magireco",
+      "name": "マギアレコード",
+      "account": "magireco",
+      "keywords": [
+        "メンテナンス",
+        "サービス再開"
+      ],
+      "eventname": "magireco_info"
+    },
+    {
+      "id": "gran",
+      "name": "グランブルーファンタジー",
+      "account": "granbluefantasy",
+      "keywords": [
+        "メンテナンス"
+      ],
+      "eventname": "gran_info"
     }
   ]
 }

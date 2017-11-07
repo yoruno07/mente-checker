@@ -19,7 +19,7 @@ html {
 /* Not required for template or sticky footer method. */
 
 body > .container {
-  padding: 40px 0px;
+  padding: 20px 0px;
 }
 
 .footer > .container {

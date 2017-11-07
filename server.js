@@ -62,16 +62,16 @@ function tSetup(checker) {
       io.sockets.emit(checker.eventname, data);
     });
     // socket接続後に最新のツイートを取得
-    tGet(checker, 5);
+    tGet(checker, 3);
   });
 }
 
-// 1分ごとに最新のツイートを取得し、更新がないか確認
+// 3分ごとに最新のツイートを取得し、更新がないか確認
 // streamは日本語の検索が未対応のため、searchメソッドを一定時間ごとに叩くことで擬似リアルタイム表示とする
 function tstream(checker) {
   setInterval(function(){
                     tGet(checker, 1);
-                  }, 60000);
+                  }, 180000);
 }
 
 // Twitterからテキストを取得してsocketで発信
