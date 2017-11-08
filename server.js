@@ -26,6 +26,7 @@ function tSetup(checker) {
   io.sockets.on('connection', function(socket) {
       // クライアント側から初回接続の合図を受け取ったら最新のツイートを取得し、そのクライアントに送信
       socket.on("first", function (msg) {
+        checker.last_id = ""; // 接続が発生した場合はlast_idを初期化
         tGet(checker, 3, socket.id);
       });
   });
