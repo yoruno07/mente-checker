@@ -3,6 +3,7 @@
 div.card {
    width: 20rem;
    margin: 2rem 0;
+   cursor : move;
 }
 
 ul.info-list > li {

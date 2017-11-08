@@ -8,22 +8,22 @@
       <a class="navbar-brand" href="#"><%=title %></a>
     </nav>
   </header>
-
   <div class="container">
+  <p><%=description %></p>
     <main role="main">
       <% games.forEach(function(val, key){ %>
         <% if (key % 3 === 0) { %>
-          <div class="row">
+          <div class="row sortable">
         <% } %>
-          <div class="col">
+          <div class="col sortable-card">
               <div class="card">
                 <div class="card-header">
-                  <%= val.name %>メンテ情報
+                  <%= val.name %>
                 </div>
                 <ul class="list-group list-group-flush info-list" id="<%= val.id %>"></ul>
               </div>
             </div>
-        <% if (key % 3 === 2 || key === games.length-1) { %>
+          <% if (key % 3 === 2 || key === games.length-1) { %>
           </div>
         <% } %>
       <% }); %>

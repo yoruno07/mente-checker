@@ -1,5 +1,6 @@
 {
-  "sitename": "メンテチェッカー",
+  "sitename": "メンテ情報まとめ",
+  "description": "各ゲームの公式Twitterからメンテナンスに関する情報を集めて表示しています。",
   "games": [
     {
       "id" : "fgo",
@@ -47,6 +48,15 @@
         "メンテナンス実施"
       ],
       "eventname": "imascgst_info"
+    },
+    {
+      "id": "pso2",
+      "name": "ファンタシースターオンライン2",
+      "account": "sega_pso2",
+      "keywords": [
+        "メンテナンス"
+      ],
+      "eventname": "pso2_info"
     }
   ]
 }
