@@ -1,53 +1,19 @@
 var http = require('http');
 var app = require('./app');
-var modules = require('./module');
 var config = require('./public/json/config');
+var games = config.games;
 
+var modules = require('./module');
 var T = modules.twitter;
+var Checker = modules.checker;
 
 server = http.createServer(app).listen(app.get('port'),function()
 {
   console.log('listening on port ' +  app.get('port'));
 });
-
 var io = require('socket.io')(server);
-var games = config.games;
+
 var checkers = [];
-
-class Checker {
-  constructor(acc, kw, et) {
-    this._account = acc;
-    this._keywords = kw;
-    this._eventname = et;
-    this._last_id = "";
-  }
-
-  get account() {
-    return this._account;
-  }
-  get keywords() {
-    return this._keywords;
-  }
-  get eventname() {
-    return this._eventname;
-  }
-  get last_id() {
-    return this._last_id;
-  }
-
-  set account(acc) {
-    this._account = acc;
-  }
-  set keywords(kw) {
-    this._keywords = kw;
-  }
-  set eventname(et) {
-    this._eventname = et;
-  }
-  set last_id(id) {
-    this._last_id = id;
-  }
-}
 
 games.forEach(function(val){
   var checker = new Checker(val.account, val.keywords, val.eventname);
@@ -98,15 +64,3 @@ function tGet(checker, count) {
       }
   });
 }
-
-// function tStream(account, keyword, eventname){
-//   var stream = T.stream('statuses/filter', {track: keyword});
-//   stream.on('tweet', function (tweet) {
-//     if (tweet.user.name === account) {
-//       var text = "ユーザー名: " + tweet.user.name + "<br/>ツイート: " + tweet.text;
-//       text += "<br/>=========================================================";
-//       io.sockets.emit(eventname, text);
-//       console.log(text);
-//     }
-//   });
-// }

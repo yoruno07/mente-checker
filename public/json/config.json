@@ -40,13 +40,13 @@
       "eventname": "magireco_info"
     },
     {
-      "id": "gran",
-      "name": "グランブルーファンタジー",
-      "account": "granbluefantasy",
+      "id": "imascgst",
+      "name": "デレステ",
+      "account": "imascg_stage",
       "keywords": [
-        "メンテナンス"
+        "メンテナンス実施"
       ],
-      "eventname": "gran_info"
+      "eventname": "imascgst_info"
     }
   ]
 }
