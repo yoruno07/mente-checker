@@ -24,11 +24,10 @@ games.forEach(function(val){
 
 function tSetup(checker) {
   io.sockets.on('connection', function(socket) {
-    socket.on(checker.eventname, function(data) {
-      io.sockets.emit(checker.eventname, data);
-    });
-    // socket接続後に最新のツイートを取得
-    tGet(checker, 3);
+      // クライアント側から初回接続の合図を受け取ったら最新のツイートを取得し、そのクライアントに送信
+      socket.on("first", function (msg) {
+        tGet(checker, 3, socket.id);
+      });
   });
 }
 
@@ -36,12 +35,12 @@ function tSetup(checker) {
 // streamは日本語の検索が未対応のため、searchメソッドを一定時間ごとに叩くことで擬似リアルタイム表示とする
 function tstream(checker) {
   setInterval(function(){
-                    tGet(checker, 1);
+                    tGet(checker, 1, null);
                   }, 180000);
 }
 
 // Twitterからテキストを取得してsocketで発信
-function tGet(checker, count) {
+function tGet(checker, count, socket_id) {
   var account = checker.account;
   var keyword =  checker.keywords.join(" OR ");
   var eventname = checker.eventname;
@@ -56,8 +55,12 @@ function tGet(checker, count) {
           for (i=max_count-1; 0 <= i; i--) {
             // 前回取得したツイートとidが一致した場合は新しいツイートがないとみなし、発信を行わない（setInterval時用）
             if (statuses[i].id === last_id) break;
-            // socketでツイート内容を送信
-            io.sockets.emit(eventname, statuses[i].text);
+            // socketでツイート内容を送信（初回接続の場合はその接続先にのみ送るためid指定で個別に送る）
+            if (socket_id !== null) {
+              io.to(socket_id).emit(eventname, statuses[i].text);
+            } else {
+              io.sockets.emit(eventname, statuses[i].text);
+            }
             // 最新のツイートのIDを次回比較用に保持
             if (i === 0) checker.last_id = statuses[i].id;
           }
