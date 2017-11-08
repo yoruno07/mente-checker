@@ -1,6 +1,7 @@
 {
   "sitename": "メンテ情報まとめ",
-  "description": "各ゲームの公式Twitterからメンテナンスに関する情報を集めて表示しています。",
+  "description": "色々なゲームの公式Twitterからメンテナンスに関する情報を集めて表示しています。",
+  "twitter_url": "https://twitter.com/",
   "games": [
     {
       "id" : "fgo",

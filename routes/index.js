@@ -6,6 +6,7 @@ router.get('/', function(req, res, next) {
   res.render('index',
     {title : config.sitename,
     description : config.description,
+    twitter_url : config.twitter_url,
     games: config.games}
   );
 });
