@@ -6,10 +6,10 @@ var Info = new Schema({
   game_id: String,
   tweet_id: Number,
   content: String,
-  tweeted_at: Date
+  tweeted_at: Number
 });
 
 // MongoDBへの接続
-mongoose.connect('mongodb://' + process.env.DB_URL + '/' + config.db_name);
+mongoose.connect(process.env.MONGODB_URI);
 // スキーマからモデルをコンパイルし、モデルをエクスポートする
 exports.Info = mongoose.model('info', Info);
