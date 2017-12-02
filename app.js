@@ -6,7 +6,7 @@ var routes = require('./routes/index');
 
 var app =  express();
 
-// aooの設定
+// appの設定
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 

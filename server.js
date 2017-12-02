@@ -1,6 +1,8 @@
 var http = require('http');
 var app = require('./app');
 var config = require('./public/json/config');
+var Info = require('./model/info').Info;
+
 var games = config.games;
 
 var modules = require('./module');
@@ -14,6 +16,18 @@ server = http.createServer(app).listen(app.get('port'),function()
 var io = require('socket.io')(server);
 
 var checkers = [];
+
+// var test = new Info({
+//   game_id: 'test',
+//   tweet_id: 111,
+//   content: 'test',
+//   date: 20171202
+// });
+// // ドキュメントの保存
+// test.save(function(err) {
+//   console.log('save!');
+//   if (err) throw err;
+// });
 
 games.forEach(function(val){
   var checker = new Checker(val.account, val.keywords, val.eventname);
@@ -51,6 +65,7 @@ function tGet(checker, count, socket_id) {
           return console.log("ERROR: " + err);
        } else {
           var statuses = data.statuses;
+          console.log(statuses);
           var max_count = statuses.length;
           // 古いツイートから順に送信するため逆順で配列を回す
           for (i=max_count-1; 0 <= i; i--) {

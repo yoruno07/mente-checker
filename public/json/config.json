@@ -2,6 +2,7 @@
   "sitename": "メンテ情報まとめ",
   "description": "色々なゲームの公式Twitterからメンテナンスに関する情報を集めて表示しています。",
   "twitter_url": "https://twitter.com/",
+  "db_name": "checker",
   "games": [
     {
       "id" : "fgo",
