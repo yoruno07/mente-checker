@@ -66,6 +66,8 @@ function tGet(checker, count, socket_id) {
           io.to(socket_id).emit('error', err);
           return console.log("ERROR: " + err);
        } else {
+          // APIエラーが発生しない場合は解消された合図を送る
+          io.to(socket_id).emit('no-error', err);
           var statuses = data.statuses;
           var max_count = statuses.length;
           // 古いツイートから順に送信するため逆順で配列を回す

@@ -28,4 +28,8 @@ $(function() {
       $('#desc').after('<div class="alert alert-danger" role="alert" id="err-disp">'+errmsg+'</div>');
     }
   });
+  // APIエラー解除受取
+  socket.on('no-error', function(err) {
+    $('#err-disp').remove();
+  });
 });
