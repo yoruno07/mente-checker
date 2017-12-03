@@ -62,10 +62,11 @@ function tGet(checker, count, socket_id) {
   var last_id = checker.last_id;
   T.get('search/tweets', { q: keyword + ' from:' + account, count: count}, function(err, data, response) {
        if  (err) {
+          // APIエラーが発生した場合はその旨を表示
+          io.to(socket_id).emit('error', err);
           return console.log("ERROR: " + err);
        } else {
           var statuses = data.statuses;
-          console.log(statuses);
           var max_count = statuses.length;
           // 古いツイートから順に送信するため逆順で配列を回す
           for (i=max_count-1; 0 <= i; i--) {

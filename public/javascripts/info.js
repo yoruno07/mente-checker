@@ -15,4 +15,17 @@ $(function() {
       });
     });
   });
+
+  // APIエラー受取
+  socket.on('error', function(err) {
+    if (!($('#err-disp').length)) {
+      var errmsg = '';
+      if (err.statusCode===429) {
+        errmsg = 'APIリクエストの上限に達しました。しばらく時間を置いて後、更新をしてください。';
+      } else {
+        errmsg = err.message;
+      }
+      $('#desc').after('<div class="alert alert-danger" role="alert" id="err-disp">'+errmsg+'</div>');
+    }
+  });
 });
