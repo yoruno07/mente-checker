@@ -26,6 +26,8 @@ $(function() {
             $('.empty-card').before(card_html);
             // サーバー側にカード追加の合図を送る
             socket.emit("add-card", val.id);
+            // モーダルから追加したゲームを削除（二重追加防止）
+            $('#add-'+val.id).remove();
             return false;
           }
         });
@@ -36,7 +38,6 @@ $(function() {
   socket.on('error', function(err) {
     if (!($('#err-disp').length)) {
       var errmsg = '';
-      console.log(err);
       if (err.statusCode===429) {
         errmsg = 'APIリクエストの上限に達しました。しばらく時間を置いて後、更新をしてください。';
       } else if (err.columnNumber===7328) {

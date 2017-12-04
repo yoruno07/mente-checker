@@ -46,7 +46,9 @@
       <div class="modal-body">
         <select class="form-control" id="add-card-select">
           <% games.forEach(function(val, key){ %>
-            <option id="add-<%= val.id %>"><%= val.name %></option>
+            <% if (!val.default) { %>
+              <option id="add-<%= val.id %>"><%= val.name %></option>
+            <% } %>
           <% }); %>
         </select>
       </div>
