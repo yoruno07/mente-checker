@@ -11,19 +11,18 @@
   <div class="container">
   <p id="desc"><%=description %></p>
     <main role="main">
-      <div class="card-columns sortable">
+      <div class="card-columns">
         <% games.forEach(function(val, key){ %>
-        <% if (val.default) { %>
-            <div class="col sortable-card">
-                <div class="card">
+          <% if (val.default) { %>
+                <div class="card" id="<%= val.id %>">
                   <div class="card-header">
-                    <%= val.name %>
+                    <i class="fa fa-times-circle-o fa-lg close-icon" aria-hidden="true"></i>
+                    <span class="card-name"><%= val.name %></span>
                     <a href="<%= twitter_url %><%= val.account %>"  target=”_blank”><img src="/images/twitter.png" alt="twitter" class="twitter-icon"></a>
                   </div>
-                  <ul class="list-group list-group-flush info-list" id="<%= val.id %>"></ul>
+                  <ul class="list-group list-group-flush info-list"></ul>
                 </div>
-              </div>
-          <% } %>
+            <% } %>
           <% }); %>
         <div class="card empty-card">
           <i class="fa fa-plus-circle fa-5x add-card-icon" aria-hidden="true" data-toggle="modal" data-target="#add-card-modal"></i>

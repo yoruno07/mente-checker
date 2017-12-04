@@ -31,6 +31,18 @@ i.add-card-icon {
     cursor: pointer;
 }
 
+i.close-icon {
+    position: absolute;
+    top: 2%;
+    left: 2%;
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+span.card-name {
+    margin-left: 0.8em;
+}
+
 option:disabled {
     background: #ddd;
 }

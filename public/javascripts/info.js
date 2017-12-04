@@ -5,28 +5,28 @@ $(function() {
     // 接続時に既存の要素は一旦削除
     $('ul').children().remove();
     // 初回接続時にサーバー側に合図を送る
-    socket.emit("first", "first-connect");
+    socket.emit('first', 'first-connect');
   });
 
-  $.getJSON("/json/config.json", function(jsondata) {
+  $.getJSON('/json/config.json', function(jsondata) {
     $.each(jsondata.games, function(key, val) {
         socket.on(val.eventname, function(info) {
-          $('ul#' + val.id).prepend('<li class="list-group-item"> '+ info + '</li>');
+          $('div#' + val.id).children('ul.info-list').prepend('<li class="list-group-item"> '+ info + '</li>');
         });
     });
   });
 
    // 追加ソケット処理（モーダルで追加が選ばれた時に発火）
-   $(document).on('click', "#add-card-submit", function(){
-      $.getJSON("/json/config.json", function(jsondata) {
+   $('#add-card-submit').on('click', function(){
+      $.getJSON('/json/config.json', function(jsondata) {
         $.each(jsondata.games, function(key, val) {
           // 選択されているゲームのIDを取得し、対応するカードを追加
-          if ('add-'+val.id === $("#add-card-select").val()) {
-            var card_html = '<div class="col sortable-card"><div class="card"><div class="card-header">'+val.name+'<a href="'+jsondata.twitter_url+val.account+'"  target=”_blank”><img src="/images/twitter.png" alt="twitter" class="twitter-icon"></a></div><ul class="list-group list-group-flush info-list" id="'+val.id+'"></ul></div></div>';
+          if ('add-'+val.id === $('#add-card-select').val()) {
+            var card_html = '<div class="card" id="'+val.id+'"><div class="card-header"><i class="fa fa-times-circle-o fa-lg close-icon" aria-hidden="true"></i><span class="card-name">'+val.name+'</span><a href="'+jsondata.twitter_url+val.account+'"  target=”_blank”><img src="/images/twitter.png" alt="twitter" class="twitter-icon"></a></div><ul class="list-group list-group-flush info-list"></ul></div>';
             $('.empty-card').before(card_html);
             // サーバー側にカード追加の合図を送る
-            socket.emit("add-card", val.id);
-            // モーダルから追加したゲームの選択肢にdisacledを追加（二重追加防止）
+            socket.emit('add-card', val.id);
+            // モーダルから追加したゲームの選択肢にdisabledを追加（二重追加防止）
             $('#add-card-select option:selected').prop('disabled', true);
             // 選択状態を冒頭に戻す
             $('#add-card-select option:first').prop('selected', true);
@@ -35,6 +35,14 @@ $(function() {
         });
       });
   });
+
+   // カードが閉じられた時の処理
+   $(document).on('click', '.close-icon', function(){
+    var card_id = $(this).closest('.card').attr('id');
+    $('#'+card_id).remove();
+    // 閉じたカードの選択肢のdisabledを削除
+    $('#add-card-select').children('[value=add-'+card_id+']').prop('disabled', false);
+   });
 
   // APIエラー受取
   socket.on('error', function(err) {
