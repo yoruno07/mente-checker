@@ -11,30 +11,24 @@
   <div class="container">
   <p id="desc"><%=description %></p>
     <main role="main">
-      <% games.forEach(function(val, key){ %>
-      <% if (val.default) { %>
-        <% if (key % 3 === 0) { %>
-          <div class="row sortable">
-        <% } %>
-          <div class="col sortable-card">
-              <div class="card">
-                <div class="card-header">
-                  <%= val.name %>
-                  <a href="<%= twitter_url %><%= val.account %>"  target=”_blank”><img src="/images/twitter.png" alt="twitter" class="twitter-icon"></a>
+      <div class="card-columns sortable">
+        <% games.forEach(function(val, key){ %>
+        <% if (val.default) { %>
+            <div class="col sortable-card">
+                <div class="card">
+                  <div class="card-header">
+                    <%= val.name %>
+                    <a href="<%= twitter_url %><%= val.account %>"  target=”_blank”><img src="/images/twitter.png" alt="twitter" class="twitter-icon"></a>
+                  </div>
+                  <ul class="list-group list-group-flush info-list" id="<%= val.id %>"></ul>
                 </div>
-                <ul class="list-group list-group-flush info-list" id="<%= val.id %>"></ul>
               </div>
-            </div>
-          <% if (key % 3 === 2 || key === games.length-1) { %>
-          </div>
-        <% } %>
-      <% } %>
-      <% }); %>
-
-      <div class="card empty-card">
-        <i class="fa fa-plus-circle fa-5x add-card-icon" aria-hidden="true" data-toggle="modal" data-target="#add-card-modal"></i>
+          <% } %>
+          <% }); %>
+        <div class="card empty-card">
+          <i class="fa fa-plus-circle fa-5x add-card-icon" aria-hidden="true" data-toggle="modal" data-target="#add-card-modal"></i>
+        </div>
       </div>
-
     </main>
   </div>
 
@@ -50,14 +44,14 @@
         </button>
       </div>
       <div class="modal-body">
-        <select class="form-control">
+        <select class="form-control" id="add-card-select">
           <% games.forEach(function(val, key){ %>
             <option id="add-<%= val.id %>"><%= val.name %></option>
           <% }); %>
         </select>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">追加</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" id="add-card-submit">追加</button>
       </div>
     </div>
   </div>

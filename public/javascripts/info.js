@@ -10,10 +10,26 @@ $(function() {
 
   $.getJSON("/json/config.json", function(jsondata) {
     $.each(jsondata.games, function(key, val) {
-      socket.on(val.eventname, function(info) {
-        $('ul#' + val.id).prepend('<li class="list-group-item"> '+ info + '</li>');
-      });
+        socket.on(val.eventname, function(info) {
+          $('ul#' + val.id).prepend('<li class="list-group-item"> '+ info + '</li>');
+        });
     });
+  });
+
+   // 追加ソケット処理
+   $(document).on('click', "#add-card-submit", function(){
+      $.getJSON("/json/config.json", function(jsondata) {
+        $.each(jsondata.games, function(key, val) {
+          console.log('add-'+val.id);
+          console.log($("#add-card-select option:selected").attr("id"));
+          if ('add-'+val.id === $("#add-card-select option:selected").attr("id")) {
+            var card_html = '<div class="col sortable-card"><div class="card"><div class="card-header">'+val.name+'<a href="'+jsondata.twitter_url+val.account+'"  target=”_blank”><img src="/images/twitter.png" alt="twitter" class="twitter-icon"></a></div><ul class="list-group list-group-flush info-list" id="'+val.id+'"></ul></div></div>';
+            $('.empty-card').before(card_html);
+            // socket.emit("first", "first-connect");
+            return false;
+          }
+        });
+      });
   });
 
   // APIエラー受取
