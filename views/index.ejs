@@ -45,10 +45,9 @@
       </div>
       <div class="modal-body">
         <select class="form-control" id="add-card-select">
+          <option value="" selected>---追加するゲームを選択---</option>
           <% games.forEach(function(val, key){ %>
-            <% if (!val.default) { %>
-              <option id="add-<%= val.id %>"><%= val.name %></option>
-            <% } %>
+              <option value="add-<%= val.id %>" <% if (val.default) { %>disabled<% } %>><%= val.name %></option>
           <% }); %>
         </select>
       </div>

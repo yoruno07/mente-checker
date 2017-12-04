@@ -21,13 +21,15 @@ $(function() {
       $.getJSON("/json/config.json", function(jsondata) {
         $.each(jsondata.games, function(key, val) {
           // 選択されているゲームのIDを取得し、対応するカードを追加
-          if ('add-'+val.id === $("#add-card-select option:selected").attr("id")) {
+          if ('add-'+val.id === $("#add-card-select").val()) {
             var card_html = '<div class="col sortable-card"><div class="card"><div class="card-header">'+val.name+'<a href="'+jsondata.twitter_url+val.account+'"  target=”_blank”><img src="/images/twitter.png" alt="twitter" class="twitter-icon"></a></div><ul class="list-group list-group-flush info-list" id="'+val.id+'"></ul></div></div>';
             $('.empty-card').before(card_html);
             // サーバー側にカード追加の合図を送る
             socket.emit("add-card", val.id);
-            // モーダルから追加したゲームを削除（二重追加防止）
-            $('#add-'+val.id).remove();
+            // モーダルから追加したゲームの選択肢にdisacledを追加（二重追加防止）
+            $('#add-card-select option:selected').prop('disabled', true);
+            // 選択状態を冒頭に戻す
+            $('#add-card-select option:first').prop('selected', true);
             return false;
           }
         });

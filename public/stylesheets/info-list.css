@@ -30,3 +30,7 @@ i.add-card-icon {
     opacity: 0.7;
     cursor: pointer;
 }
+
+option:disabled {
+    background: #ddd;
+}
