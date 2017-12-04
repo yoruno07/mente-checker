@@ -1,7 +1,6 @@
 var http = require('http');
 var app = require('./app');
 var config = require('./public/json/config');
-var Info = require('./model/info').Info;
 
 var games = config.games;
 
