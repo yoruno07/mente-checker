@@ -16,16 +16,16 @@ $(function() {
     });
   });
 
-   // 追加ソケット処理
+   // 追加ソケット処理（モーダルで追加が選ばれた時に発火）
    $(document).on('click', "#add-card-submit", function(){
       $.getJSON("/json/config.json", function(jsondata) {
         $.each(jsondata.games, function(key, val) {
-          console.log('add-'+val.id);
-          console.log($("#add-card-select option:selected").attr("id"));
+          // 選択されているゲームのIDを取得し、対応するカードを追加
           if ('add-'+val.id === $("#add-card-select option:selected").attr("id")) {
             var card_html = '<div class="col sortable-card"><div class="card"><div class="card-header">'+val.name+'<a href="'+jsondata.twitter_url+val.account+'"  target=”_blank”><img src="/images/twitter.png" alt="twitter" class="twitter-icon"></a></div><ul class="list-group list-group-flush info-list" id="'+val.id+'"></ul></div></div>';
             $('.empty-card').before(card_html);
-            // socket.emit("first", "first-connect");
+            // サーバー側にカード追加の合図を送る
+            socket.emit("add-card", val.id);
             return false;
           }
         });
@@ -36,6 +36,7 @@ $(function() {
   socket.on('error', function(err) {
     if (!($('#err-disp').length)) {
       var errmsg = '';
+      console.log(err);
       if (err.statusCode===429) {
         errmsg = 'APIリクエストの上限に達しました。しばらく時間を置いて後、更新をしてください。';
       } else {

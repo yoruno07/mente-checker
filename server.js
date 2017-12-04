@@ -15,17 +15,30 @@ server = http.createServer(app).listen(app.get('port'),function()
 });
 var io = require('socket.io')(server);
 
-var checkers = [];
-
+// 初回表示分カード取得
 games.forEach(function(val){
   if (val.default) {
     var checker = new Checker(val.account, val.keywords, val.eventname);
     tSetup(checker);
     tstream(checker);
-    checkers.push(checker);
   }
 });
 
+// クライアントからカード追加の合図が送られてきたら追加カード分を取得
+io.sockets.on('connection', function(socket) {
+    socket.on("add-card", function (add_card_id) {
+      games.forEach(function(val){
+        if (add_card_id === val.id) {
+          var checker = new Checker(val.account, val.keywords, val.eventname);
+          tAddSetup(checker);
+          tstream(checker);
+          return false;
+        }
+      });
+    });
+});
+
+// 初回接続時取得
 function tSetup(checker) {
   io.sockets.on('connection', function(socket) {
       // クライアント側から初回接続の合図を受け取ったら最新のツイートを取得し、そのクライアントに送信
@@ -33,6 +46,14 @@ function tSetup(checker) {
         checker.last_id = ""; // 接続が発生した場合はlast_idを初期化
         tGet(checker, 3, socket.id);
       });
+  });
+}
+
+// カード追加時初期取得
+function tAddSetup(checker) {
+  io.sockets.on('connection', function(socket) {
+    checker.last_id = ""; // 接続が発生した場合はlast_idを初期化
+    tGet(checker, 3, socket.id);
   });
 }
 
