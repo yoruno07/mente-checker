@@ -39,7 +39,9 @@ $(function() {
       console.log(err);
       if (err.statusCode===429) {
         errmsg = 'APIリクエストの上限に達しました。しばらく時間を置いて後、更新をしてください。';
-      } else {
+      } else if (err.columnNumber===7328) {
+        errmsg = 'socketの通信が切断されました。もう一度更新をしてください。';
+      }  else {
         errmsg = err.message;
       }
       $('#desc').after('<div class="alert alert-danger" role="alert" id="err-disp">'+errmsg+'</div>');

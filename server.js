@@ -30,7 +30,7 @@ io.sockets.on('connection', function(socket) {
       games.forEach(function(val){
         if (add_card_id === val.id) {
           var checker = new Checker(val.account, val.keywords, val.eventname);
-          tAddSetup(checker);
+          tAddSetup(checker, socket);
           tstream(checker);
           return false;
         }
@@ -50,11 +50,9 @@ function tSetup(checker) {
 }
 
 // カード追加時初期取得
-function tAddSetup(checker) {
-  io.sockets.on('connection', function(socket) {
+function tAddSetup(checker, socket) {
     checker.last_id = ""; // 接続が発生した場合はlast_idを初期化
     tGet(checker, 3, socket.id);
-  });
 }
 
 // 3分ごとに最新のツイートを取得し、更新がないか確認
