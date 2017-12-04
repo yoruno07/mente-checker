@@ -24,7 +24,7 @@
         "メンテナンス実施"
       ],
       "eventname": "imascgst_info",
-      "default": true
+      "default": false
     },
     {
       "id": "azure",
@@ -36,7 +36,7 @@
         "アップデート"
       ],
       "eventname": "azure_info",
-      "default": false
+      "default": true
     },
     {
       "id": "a3",
@@ -47,7 +47,7 @@
         "アップデート"
       ],
       "eventname": "a3_info",
-      "default": true
+      "default": false
     },
     {
       "id": "kancolle",
@@ -58,7 +58,7 @@
         "アップデート"
       ],
       "eventname": "kancolle_info",
-      "default": true
+      "default": false
     },
     {
       "id": "kirara",
