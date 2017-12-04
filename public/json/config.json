@@ -1,17 +1,29 @@
 {
   "sitename": "メンテ情報まとめ",
-  "description": "色々なゲームの公式Twitterからメンテナンスに関する情報を集めて表示しています。",
+  "description": "色々なゲームの公式Twitterからメンテナンスやアップデートに関する情報を集めて表示しています。",
   "twitter_url": "https://twitter.com/",
-  "db_name": "checker",
+  "no_data_text": "メンテナンスやアップデートに関する最近のツイートはありません。",
   "games": [
     {
-      "id" : "fgo",
-      "name": "Fate / Grand Order",
-      "account": "fgoproject",
+      "id": "imascg",
+      "name": "アイドルマスター（デレマス）",
+      "account": "imascg_chihiro ",
       "keywords": [
-        "メンテナンス"
+        "メンテナンス",
+        "アップデート"
       ],
-      "eventname": "fgo_info",
+      "eventname": "imascg_info",
+      "default": false
+    },
+    {
+      "id": "imascgst",
+      "name": "アイドルマスター（デレステ）",
+      "account": "imascg_stage",
+      "keywords": [
+        "アプリバージョンアップのお知らせ",
+        "メンテナンス実施"
+      ],
+      "eventname": "imascgst_info",
       "default": true
     },
     {
@@ -20,9 +32,21 @@
       "account": "azurlane_staff",
       "keywords": [
         "メンテナンスのお知らせ",
-        "緊急メンテナンス"
+        "緊急メンテナンス",
+        "アップデート"
       ],
       "eventname": "azure_info",
+      "default": false
+    },
+    {
+      "id": "a3",
+      "name": "A3!（エースリー）",
+      "account": "mankai_company",
+      "keywords": [
+        "メンテナンス",
+        "アップデート"
+      ],
+      "eventname": "a3_info",
       "default": true
     },
     {
@@ -30,9 +54,153 @@
       "name": "艦隊これくしょん",
       "account": "KanColle_STAFF",
       "keywords": [
-        "メンテナンス"
+        "メンテナンス",
+        "アップデート"
       ],
       "eventname": "kancolle_info",
+      "default": true
+    },
+    {
+      "id": "kirara",
+      "name": "きららファンタジア",
+      "account": "kirarafantasia",
+      "keywords": [
+        "メンテナンス",
+        "アップデート"
+      ],
+      "eventname": "kirara_info",
+      "default": false
+    },
+   {
+      "id": "granblue",
+      "name": "グランブルーファンタジー",
+      "account": "granbluefantasy",
+      "keywords": [
+        "メンテナンス",
+        "アップデート"
+      ],
+      "eventname": "granblue_info",
+      "default": false
+    },
+    {
+      "id": "sino",
+      "name": "SINoALICE -シノアリス-",
+      "account": "sinoalice_jp",
+      "keywords": [
+        "メンテナンス",
+        "アップデート"
+      ],
+      "eventname": "sino_info",
+      "default": false
+    },
+    {
+      "id": "shadow",
+      "name": "シャドウバース",
+      "account": "shadowverse_jp ",
+      "keywords": [
+        "メンテナンス",
+        "アップデート"
+      ],
+      "eventname": "shadow_info",
+      "default": false
+    },
+    {
+      "id": "touken",
+      "name": "刀剣乱舞-ONLINE-",
+      "account": "TOUKEN_STAFF",
+      "keywords": [
+        "メンテナンス",
+        "アップデート"
+      ],
+      "eventname": "touken_info",
+      "default": false
+    },
+   {
+      "id": "pokemori",
+      "name": "どうぶつの森 ポケットキャンプ",
+      "account": "pokemori_jp",
+      "keywords": [
+        "メンテナンス",
+        "アップデート"
+      ],
+      "eventname": "pokemori_info",
+      "default": false
+    },
+    {
+      "id": "dokkan",
+      "name": "ドラゴンボールZ ドッカンバトル",
+      "account": "dokkan_official",
+      "keywords": [
+        "メンテナンス",
+        "アップデート"
+      ],
+      "eventname": "dokkan_info",
+      "default": false
+    },
+    {
+      "id": "pad",
+      "name": "パズル＆ドラゴンズ",
+      "account": "pad_sexy",
+      "keywords": [
+        "メンテナンス",
+        "アップデート"
+      ],
+      "eventname": "pad_info",
+      "default": false
+    },
+    {
+      "id": "bang",
+      "name": "バンドリ！ ガールズバンドパーティ！",
+      "account": "bang_dream_gbp",
+      "keywords": [
+        "メンテナンス",
+        "アップデートについて"
+      ],
+      "eventname": "bang_info",
+      "default": false
+    },
+    {
+      "id": "feh",
+      "name": "ファイアーエムブレム ヒーローズ",
+      "account": "FE_Heroes_JP",
+      "keywords": [
+        "メンテナンス",
+        "アップデートに関して"
+      ],
+      "eventname": "feh_info",
+      "default": false
+    },
+    {
+      "id": "pso2",
+      "name": "ファンタシースターオンライン2",
+      "account": "sega_pso2",
+      "keywords": [
+        "メンテナンス",
+        "アップデート"
+      ],
+      "eventname": "pso2_info",
+      "default": false
+    },
+    {
+      "id" : "fgo",
+      "name": "Fate / Grand Order",
+      "account": "fgoproject",
+      "keywords": [
+        "メンテナンス",
+        "アップデート"
+      ],
+      "eventname": "fgo_info",
+      "default": true
+    },
+    {
+      "id": "pokego",
+      "name": "Pokémon GO",
+      "account": "PokemonGOAppJP",
+      "keywords": [
+        "障害",
+        "アップデート"
+      ],
+      "eventname": "pokego_info",
       "default": false
     },
     {
@@ -41,29 +209,32 @@
       "account": "magireco",
       "keywords": [
         "メンテナンス",
+        "アップデート",
         "サービス再開"
       ],
       "eventname": "magireco_info",
       "default": false
     },
     {
-      "id": "imascgst",
-      "name": "デレステ",
-      "account": "imascg_stage",
+      "id": "monst",
+      "name": "モンスターストライク",
+      "account": "monst_mixi",
       "keywords": [
-        "メンテナンス実施"
+        "メンテナンス",
+        "アップデート"
       ],
-      "eventname": "imascgst_info",
+      "eventname": "monst_info",
       "default": false
     },
     {
-      "id": "pso2",
-      "name": "ファンタシースターオンライン2",
-      "account": "sega_pso2",
+      "id": "tsumtsum",
+      "name": "LINE：ディズニー ツムツム",
+      "account": "LINE_tsumtsum_j",
       "keywords": [
-        "メンテナンス"
+        "メンテナンス",
+        "アップデート"
       ],
-      "eventname": "pso2_info",
+      "eventname": "tsumtsum_info",
       "default": false
     }
   ]

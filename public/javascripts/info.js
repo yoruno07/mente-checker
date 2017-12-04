@@ -3,7 +3,7 @@ $(function() {
   var socket = io.connect();
   socket.on('connect', function() {
     // 接続時に既存の要素は一旦削除
-    $('ul').children().remove();
+    $('li:not(.no-data)').children().remove();
     // 初回接続時にサーバー側に合図を送る
     socket.emit('first', 'first-connect');
   });
@@ -14,6 +14,8 @@ $(function() {
         socket.on(val.eventname, function(info) {
           // tweetへのリンク先を生成
           status_url = jsondata.twitter_url+val.account+'/status/'+info.id_str;
+          // tweetを取得できた場合はno-data時のテキストを削除
+          $('div#' + val.id).find('li.no-data').remove();
           // listとしてカード内に情報を追加
           $('div#' + val.id).children('ul.info-list').prepend('<li class="list-group-item"> '+info.text+'<br /><a href="'+status_url+'" class="card-link" target=”_blank”>'+info.date+'</a></li>');
         });
@@ -26,7 +28,7 @@ $(function() {
         $.each(jsondata.games, function(key, val) {
           // 選択されているゲームのIDを取得し、対応するカードを追加
           if ('add-'+val.id === $('#add-card-select').val()) {
-            var card_html = '<div class="card" id="'+val.id+'"><div class="card-header"><i class="fa fa-times-circle-o fa-lg close-icon" aria-hidden="true"></i><span class="card-name">'+val.name+'</span><a href="'+jsondata.twitter_url+val.account+'"  target=”_blank”><img src="/images/twitter.png" alt="twitter" class="twitter-icon"></a></div><ul class="list-group list-group-flush info-list"></ul></div>';
+            var card_html = '<div class="card" id="'+val.id+'"><div class="card-header"><i class="fa fa-times-circle-o fa-lg close-icon" aria-hidden="true"></i><span class="card-name">'+val.name+'</span><a href="'+jsondata.twitter_url+val.account+'"  target=”_blank”><img src="/images/twitter.png" alt="twitter" class="twitter-icon"></a></div><ul class="list-group list-group-flush info-list"><li class="list-group-item no-data">'+jsondata.no_data_text+'</li></ul></div>';
             $('.empty-card').before(card_html);
             // サーバー側にカード追加の合図を送る
             socket.emit('add-card', val.id);
@@ -57,7 +59,8 @@ $(function() {
       } else if (err.columnNumber===7328) {
         errmsg = 'socketの通信が切断されました。もう一度更新をしてください。';
       }  else {
-        errmsg = err.message;
+        errmsg = 'その他不明なエラーが発生しています。もう一度更新をしてください。';
+        console.log(err);
       }
       $('#desc').after('<div class="alert alert-danger" role="alert" id="err-disp">'+errmsg+'</div>');
     }

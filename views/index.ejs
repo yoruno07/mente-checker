@@ -20,7 +20,9 @@
                     <span class="card-name"><%= val.name %></span>
                     <a href="<%= twitter_url %><%= val.account %>"  target=”_blank”><img src="/images/twitter.png" alt="twitter" class="twitter-icon"></a>
                   </div>
-                  <ul class="list-group list-group-flush info-list"></ul>
+                  <ul class="list-group list-group-flush info-list">
+                    <li class="list-group-item no-data"><%= no_data_text %></li>
+                  </ul>
                 </div>
             <% } %>
           <% }); %>

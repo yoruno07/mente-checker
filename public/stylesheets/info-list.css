@@ -16,6 +16,11 @@ ul.info-list > li {
   font-size: 80%;
 }
 
+ul.info-list > li.no-data {
+  font-size: 90%;
+  color: #b22222;
+}
+
 div.empty-card {
   width: 20rem;
   height: 25rem;
@@ -33,8 +38,8 @@ i.add-card-icon {
 
 i.close-icon {
     position: absolute;
-    top: 2%;
-    left: 2%;
+    top: 0.4em;
+    left: 0.3em;
     opacity: 0.8;
     cursor: pointer;
 }
