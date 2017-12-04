@@ -11,7 +11,8 @@
       "keywords": [
         "メンテナンス"
       ],
-      "eventname": "fgo_info"
+      "eventname": "fgo_info",
+      "default": true
     },
     {
       "id": "azure",
@@ -21,7 +22,8 @@
         "メンテナンスのお知らせ",
         "緊急メンテナンス"
       ],
-      "eventname": "azure_info"
+      "eventname": "azure_info",
+      "default": true
     },
     {
       "id": "kancolle",
@@ -30,7 +32,8 @@
       "keywords": [
         "メンテナンス"
       ],
-      "eventname": "kancolle_info"
+      "eventname": "kancolle_info",
+      "default": false
     },
     {
       "id": "magireco",
@@ -40,7 +43,8 @@
         "メンテナンス",
         "サービス再開"
       ],
-      "eventname": "magireco_info"
+      "eventname": "magireco_info",
+      "default": false
     },
     {
       "id": "imascgst",
@@ -49,7 +53,8 @@
       "keywords": [
         "メンテナンス実施"
       ],
-      "eventname": "imascgst_info"
+      "eventname": "imascgst_info",
+      "default": false
     },
     {
       "id": "pso2",
@@ -58,7 +63,8 @@
       "keywords": [
         "メンテナンス"
       ],
-      "eventname": "pso2_info"
+      "eventname": "pso2_info",
+      "default": false
     }
   ]
 }

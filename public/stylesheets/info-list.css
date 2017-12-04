@@ -15,3 +15,14 @@ img.twitter-icon {
 ul.info-list > li {
   font-size: 80%;
 }
+
+div.empty-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+i.add-card-icon {
+    opacity: 0.7;
+    cursor: pointer;
+}

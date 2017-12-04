@@ -17,23 +17,13 @@ var io = require('socket.io')(server);
 
 var checkers = [];
 
-var test = new Info({
-  game_id: 'test',
-  tweet_id: 111,
-  content: 'test',
-  date: 20171202
-});
-// ドキュメントの保存
-test.save(function(err) {
-  console.log('save!');
-  if (err) throw err;
-});
-
 games.forEach(function(val){
-  var checker = new Checker(val.account, val.keywords, val.eventname);
-  tSetup(checker);
-  tstream(checker);
-  checkers.push(checker);
+  if (val.default) {
+    var checker = new Checker(val.account, val.keywords, val.eventname);
+    tSetup(checker);
+    tstream(checker);
+    checkers.push(checker);
+  }
 });
 
 function tSetup(checker) {

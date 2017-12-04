@@ -12,6 +12,7 @@
   <p id="desc"><%=description %></p>
     <main role="main">
       <% games.forEach(function(val, key){ %>
+      <% if (val.default) { %>
         <% if (key % 3 === 0) { %>
           <div class="row sortable">
         <% } %>
@@ -27,11 +28,40 @@
           <% if (key % 3 === 2 || key === games.length-1) { %>
           </div>
         <% } %>
+      <% } %>
       <% }); %>
+
+      <div class="card empty-card">
+        <i class="fa fa-plus-circle fa-5x add-card-icon" aria-hidden="true" data-toggle="modal" data-target="#add-card-modal"></i>
+      </div>
+
     </main>
   </div>
 
 <% include template/_footer %>
+
+<div class="modal fade" id="add-card-modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">チェックするゲームを追加する</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <select class="form-control">
+          <% games.forEach(function(val, key){ %>
+            <option id="add-<%= val.id %>"><%= val.name %></option>
+          <% }); %>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">追加</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
