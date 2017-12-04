@@ -46,3 +46,7 @@ span.card-name {
 option:disabled {
     background: #ddd;
 }
+
+a.card-link {
+    color: #438dc4;
+}

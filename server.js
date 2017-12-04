@@ -1,4 +1,5 @@
 var http = require('http');
+var moment = require('moment-timezone');
 var app = require('./app');
 var config = require('./public/json/config');
 
@@ -84,13 +85,26 @@ function tGet(checker, count, socket_id) {
             if (statuses[i].id === last_id) break;
             // socketでツイート内容を送信（初回接続の場合はその接続先にのみ送るためid指定で個別に送る）
             if (socket_id !== null) {
-              io.to(socket_id).emit(eventname, statuses[i].text);
+              io.to(socket_id).emit(eventname, {id_str: statuses[i].id_str, text: statuses[i].text, date: convertTwitDate(statuses[i].created_at)});
             } else {
-              io.sockets.emit(eventname, statuses[i].text);
+              io.sockets.emit(eventname, {id_str: statuses[i].id_str, text: statuses[i].text, date: convertTwitDate(statuses[i].created_at)});
             }
             // 最新のツイートのIDを次回比較用に保持
             if (i === 0) checker.last_id = statuses[i].id;
           }
       }
   });
+}
+
+// Twitで取得したtweetの日付をフォーマットとタイムゾーンを表示用に変換する
+// ex) Tue Nov 28 09:51:42 +0000 2017 => 2017/11/28 18:51:42
+function convertTwitDate(created_at) {
+  var monthlist = {'Jan' : 01, 'Feb' : 02, 'Mar' : 03, 'Apr' : 04, 'May' : 05, 'Jun' : 06, 'Jul' : 07, 'Aug' : 08, 'Sep' : 09, 'Oct' : 10, 'Nov' : 11, 'Dec' : 12};
+  var year = created_at.slice(-4);
+  var month = monthlist[created_at.slice(4, 7)];
+  var day = created_at.slice(8, 10);
+  var time = created_at.slice(11, 19);
+  // 取得した日付はUTCなのでJSTに変換
+  var date = moment(year+'-'+month+'-'+day+'T'+time+'+0000').tz("Asia/Tokyo").format("YYYY/MM/DD HH:mm:ss");
+  return date;
 }

@@ -8,10 +8,14 @@ $(function() {
     socket.emit('first', 'first-connect');
   });
 
+  var status_url = '';
   $.getJSON('/json/config.json', function(jsondata) {
     $.each(jsondata.games, function(key, val) {
         socket.on(val.eventname, function(info) {
-          $('div#' + val.id).children('ul.info-list').prepend('<li class="list-group-item"> '+ info + '</li>');
+          // tweetへのリンク先を生成
+          status_url = jsondata.twitter_url+val.account+'/status/'+info.id_str;
+          // listとしてカード内に情報を追加
+          $('div#' + val.id).children('ul.info-list').prepend('<li class="list-group-item"> '+info.text+'<br /><a href="'+status_url+'" class="card-link" target=”_blank”>'+info.date+'</a></li>');
         });
     });
   });
