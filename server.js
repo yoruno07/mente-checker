@@ -17,11 +17,9 @@ var io = require('socket.io')(server);
 
 // 初回表示分カード取得
 games.forEach(function(val){
-  if (val.default) {
-    var checker = new Checker(val.account, val.keywords, val.eventname);
-    tSetup(checker);
-    tstream(checker);
-  }
+  var checker = new Checker(val.account, val.keywords, val.eventname);
+  tSetup(checker);
+  tstream(checker);
 });
 
 // クライアントからカード追加の合図が送られてきたら追加カード分を取得

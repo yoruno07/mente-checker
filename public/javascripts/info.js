@@ -3,7 +3,7 @@ $(function() {
   var socket = io.connect();
   socket.on('connect', function() {
     // 接続時に既存の要素は一旦削除
-    $('li:not(.no-data)').children().remove();
+    $('li:not(.no-data)').remove();
     // 初回接続時にサーバー側に合図を送る
     socket.emit('first', 'first-connect');
   });
