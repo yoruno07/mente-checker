@@ -1,6 +1,6 @@
 {
   "sitename": "メンテ情報まとめったー",
-  "description": "色々なゲームの公式Twitterからメンテナンスやアップデートに関する情報を集めて表示しています。",
+  "description": "色々なゲームの公式Twitterからメンテナンスやアップデートに関する情報を集めて表示することが出来ます。",
   "twitter_url": "https://twitter.com/",
   "no_data_text": "メンテナンスやアップデートに関する最近のツイートはありません。",
   "games": [
