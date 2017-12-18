@@ -36,8 +36,9 @@ $(function() {
             $('#add-card-select option:selected').prop('disabled', true);
             // 選択状態を冒頭に戻す
             $('#add-card-select option:first').prop('selected', true);
-
+            // カード追加情報をGAに送信
             gtag('event', 'submit', {'event_category': 'add-card', 'event_label': val.name});
+
             return false;
           }
         });
@@ -50,6 +51,17 @@ $(function() {
     $('#'+card_id).remove();
     // 閉じたカードの選択肢のdisabledを削除
     $('#add-card-select').children('[value=add-'+card_id+']').prop('disabled', false);
+
+    // 閉じたカード情報をGAに送信
+    $.getJSON('/json/config.json', function(jsondata) {
+      $.each(jsondata.games, function(key, val) {
+        if (card_id === val.id) {
+          gtag('event', 'click', {'event_category': 'close-card', 'event_label': val.name});
+          return false;
+        }
+      });
+    });
+
    });
 
   // APIエラー受取
@@ -58,10 +70,13 @@ $(function() {
       var errmsg = '';
       if (err.statusCode===429) {
         errmsg = 'APIリクエストの上限に達しました。しばらく時間を置いて後、更新をしてください。';
+        gtag('event', 'error-notice', {'event_category': 'error', 'event_label': 'APIリクエスト上限エラー'});
       } else if (err.columnNumber===7328) {
         errmsg = 'socketの通信が切断されました。もう一度更新をしてください。';
+        gtag('event', 'error-notice', {'event_category': 'error', 'event_label': 'socket通信切断エラー'});
       }  else {
         errmsg = 'その他不明なエラーが発生しています。もう一度更新をしてください。';
+        gtag('event', 'error-notice', {'event_category': 'error', 'event_label': 'その他不明なエラー'});
         console.log(err);
       }
       $('#desc').after('<div class="alert alert-danger" role="alert" id="err-disp">'+errmsg+'</div>');
