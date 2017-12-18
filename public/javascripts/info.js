@@ -36,6 +36,8 @@ $(function() {
             $('#add-card-select option:selected').prop('disabled', true);
             // 選択状態を冒頭に戻す
             $('#add-card-select option:first').prop('selected', true);
+
+            gtag('event', 'submit', {'event_category': 'add-card', 'event_label': val.name});
             return false;
           }
         });
