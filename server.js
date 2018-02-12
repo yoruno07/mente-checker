@@ -97,7 +97,7 @@ function tGet(checker, count, socket_id) {
 // Twitで取得したtweetの日付をフォーマットとタイムゾーンを表示用に変換する
 // ex) Tue Nov 28 09:51:42 +0000 2017 => 2017/11/28 18:51:42
 function convertTwitDate(created_at) {
-  var monthlist = {'Jan' : 01, 'Feb' : 02, 'Mar' : 03, 'Apr' : 04, 'May' : 05, 'Jun' : 06, 'Jul' : 07, 'Aug' : 08, 'Sep' : 09, 'Oct' : 10, 'Nov' : 11, 'Dec' : 12};
+  var monthlist = {'Jan' : '01', 'Feb' : '02', 'Mar' : '03', 'Apr' : '04', 'May' : '05', 'Jun' : '06', 'Jul' : '07', 'Aug' : '08', 'Sep' : '09', 'Oct' : '10', 'Nov' : '11', 'Dec' : '12'};
   var year = created_at.slice(-4);
   var month = monthlist[created_at.slice(4, 7)];
   var day = created_at.slice(8, 10);
