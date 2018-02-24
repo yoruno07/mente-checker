@@ -36,7 +36,7 @@
         "アップデート"
       ],
       "eventname": "azure_info",
-      "default": true
+      "default": false
     },
     {
       "id": "a3",
@@ -69,7 +69,7 @@
         "アップデート"
       ],
       "eventname": "kirara_info",
-      "default": false
+      "default": true
     },
    {
       "id": "granblue",
